@@ -3,6 +3,7 @@ package com.jwetherell.algorithms.mathematics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.jwetherell.algorithms.CoverageMeasurer;
 import com.jwetherell.algorithms.numbers.Complex;
 
 public class Multiplication {
@@ -55,32 +56,48 @@ public class Multiplication {
 
     public static String multiplyUsingFFT(String a, String b) {
         if (a.equals("0") || b.equals("0")) {
+            System.out.println("I was here 1");
+            CoverageMeasurer.visitedBranch(0);
             return "0";
         }
         boolean negative = false;
         if ((a.charAt(0) == '-' && b.charAt(0) != '-') || (a.charAt(0) != '-' && b.charAt(0) == '-')) {
+            CoverageMeasurer.visitedBranch(1);
+            System.out.println("I was here 2");
             negative = true;
         }
         if (a.charAt(0) == '-') {
+            CoverageMeasurer.visitedBranch(2);
+            System.out.println("I was here 3");
             a = a.substring(1);
         }
         if (b.charAt(0) == '-') {
+            System.out.println("I was here 4");
+            CoverageMeasurer.visitedBranch(3);
             b = b.substring(1);
         }
         int size = 1;
         while (size < (a.length() + b.length())) {
+            System.out.println("I was here 5");
+            CoverageMeasurer.visitedBranch(4);
             size *= 2;
         }
         Complex[] aCoefficients = new Complex[size];
         Complex[] bCoefficients = new Complex[size];
         for (int i = 0; i < size; i++) {
+            System.out.println("I was here 6");
+            CoverageMeasurer.visitedBranch(5);
             aCoefficients[i] = new Complex();
             bCoefficients[i] = new Complex();
         }
         for (int i = 0; i < a.length(); i++) {
+            System.out.println("I was here 7");
+            CoverageMeasurer.visitedBranch(6);
             aCoefficients[i] = new Complex((double) (Character.getNumericValue(a.charAt(a.length() - i - 1))), 0.0);
         }
         for (int i = 0; i < b.length(); i++) {
+            System.out.println("I was here 8");
+            CoverageMeasurer.visitedBranch(7);
             bCoefficients[i] = new Complex((double) (Character.getNumericValue(b.charAt(b.length() - i - 1))), 0.0);
         }
 
@@ -88,9 +105,12 @@ public class Multiplication {
         FastFourierTransform.cooleyTukeyFFT(bCoefficients);
 
         for (int i = 0; i < size; i++) {
+            System.out.println("I was here 9");
+            CoverageMeasurer.visitedBranch(8);
             aCoefficients[i] = aCoefficients[i].multiply(bCoefficients[i]);
         }
         for (int i = 0; i < size / 2; i++) {
+            CoverageMeasurer.visitedBranch(9);
             Complex temp = aCoefficients[i];
             aCoefficients[i] = aCoefficients[size - i - 1];
             aCoefficients[size - i - 1] = temp;
@@ -100,25 +120,32 @@ public class Multiplication {
         ArrayList<Integer> res = new ArrayList<Integer>();
         int pass = 0;
         for (int i = 0; i < size; i++) {
+            CoverageMeasurer.visitedBranch(10);
             res.add((int) (pass + Math.floor((aCoefficients[i].abs() + 1) / size)));
             if (res.get(i) >= 10) {
+                CoverageMeasurer.visitedBranch(11);
                 pass = res.get(i) / 10;
                 res.set(i, res.get(i) % 10);
             } else {
+                CoverageMeasurer.visitedBranch(12);
                 pass = 0;
             }
         }
         Collections.reverse(res);
         StringBuilder result = new StringBuilder();
         if (negative) {
+            CoverageMeasurer.visitedBranch(13);
             result.append('-');
         }
         boolean startPrinting = false;
         for (Integer x : res) {
+            CoverageMeasurer.visitedBranch(14);
             if (x != 0) {
+                CoverageMeasurer.visitedBranch(15);
                 startPrinting = true;
             }
             if (startPrinting) {
+                CoverageMeasurer.visitedBranch(16);
                 result.append(x);
             }
         }

@@ -31,7 +31,7 @@ public class PatriciaTreeTests {
                                      data.unsorted, data.invalid));
         assertTrue(JavaCollectionTest.testCollection(bstCollection, String.class, bstName,
                                                      data.unsorted, data.sorted, data.invalid));
-        System.out.printf("%s%% of branches are covered.%n", CoverageMeasurer.getCoverage()* 100);
+        //System.out.printf("%s%% of branches are covered.%n", CoverageMeasurer.getCoverage()* 100);
 
         CoverageMeasurer.teardown();
     }

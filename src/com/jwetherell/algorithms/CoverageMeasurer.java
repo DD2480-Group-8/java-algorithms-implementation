@@ -57,4 +57,14 @@ public class CoverageMeasurer {
         return numberOfVisitedBranches / numberOfBranches;
     }
 
+    public static double getNumBranches() {
+        double numberOfVisitedBranches = 0;
+        for (boolean b: branches) {
+            if (b)
+                numberOfVisitedBranches++;
+        }
+
+        return numberOfVisitedBranches;
+    }
+
 }
