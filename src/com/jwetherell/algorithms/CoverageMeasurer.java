@@ -48,13 +48,32 @@ public class CoverageMeasurer {
      */
     public static double getCoverage() {
         double numberOfBranches = branches.length;
+        double numberOfVisitedBranches = getNumberOfVisitedBranches();
+
+        return numberOfVisitedBranches / numberOfBranches;
+    }
+
+    public static double getNumberOfVisitedBranches() {
         double numberOfVisitedBranches = 0;
         for (boolean b: branches) {
             if (b)
                 numberOfVisitedBranches++;
         }
 
-        return numberOfVisitedBranches / numberOfBranches;
+        return numberOfVisitedBranches;
+    }
+
+    public static int[] getUnvisitedBranchInfo() {
+        int numberOfUnvisitedBranches = (int) (branches.length - getNumberOfVisitedBranches());
+        int[] unvisitedBranches = new int[numberOfUnvisitedBranches];
+        int index = 0;
+        for (int i = 0; i < branches.length; i++) {
+            if (!branches[i]) {
+                unvisitedBranches[index] = i;
+                index++;
+            }
+        }
+        return unvisitedBranches;
     }
 
 }
