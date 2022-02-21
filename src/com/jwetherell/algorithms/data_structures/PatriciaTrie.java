@@ -75,38 +75,39 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
         int indexIntoString = -1;
         Node node = root;
         for (int i = 0; i <= seq.length();) {
+            CoverageMeasurer.visitedBranch(2);
             indexIntoString = i;
             indexIntoParent++;
             if (i == seq.length()) {
-                CoverageMeasurer.visitedBranch(2);
+                CoverageMeasurer.visitedBranch(3);
                 break;
             } else {
-                CoverageMeasurer.visitedBranch(3);
+                CoverageMeasurer.visitedBranch(4);
             }
 
             char c = seq.charAt(i);
             if (node.partOfThis(c, indexIntoParent)) {
-                CoverageMeasurer.visitedBranch(4);
+                CoverageMeasurer.visitedBranch(5);
                 // Node has a char which is equal to char c at that index
                 i++;
                 continue;
             } else if (node.string != null && indexIntoParent < node.string.length) {
-                CoverageMeasurer.visitedBranch(5);
+                CoverageMeasurer.visitedBranch(6);
                 // string is equal to part of this Node's string
                 break;
             } else {
-                CoverageMeasurer.visitedBranch(6);
+                CoverageMeasurer.visitedBranch(7);
             }
 
             Node child = node.getChildBeginningWithChar(c);
             if (child != null) {
-                CoverageMeasurer.visitedBranch(7);
+                CoverageMeasurer.visitedBranch(8);
                 // Found a child node starting with char c
                 indexIntoParent = 0;
                 node = child;
                 i++;
             } else {
-                CoverageMeasurer.visitedBranch(8);
+                CoverageMeasurer.visitedBranch(9);
                 // Node doesn't have a child starting with char c
                 break;
             }
@@ -115,29 +116,29 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
         Node addedNode = null;
         Node parent = node.parent;
         if (node.string != null && indexIntoParent < node.string.length) {
-            CoverageMeasurer.visitedBranch(9);
+            CoverageMeasurer.visitedBranch(10);
             char[] parentString = Arrays.copyOfRange(node.string, 0, indexIntoParent);
             char[] refactorString = Arrays.copyOfRange(node.string, indexIntoParent, node.string.length);
 
             if (indexIntoString < seq.length()) {
-                CoverageMeasurer.visitedBranch(10);
+                CoverageMeasurer.visitedBranch(11);
                 // Creating a new parent by splitting a previous node and adding a new node
 
                 // Create new parent
                 if (parent != null)  {
-                    CoverageMeasurer.visitedBranch(11);
+                    CoverageMeasurer.visitedBranch(12);
                     parent.removeChild(node);
                 } else {
-                    CoverageMeasurer.visitedBranch(12);
+                    CoverageMeasurer.visitedBranch(13);
                 }
 
 
                 Node newParent = this.creator.createNewNode(parent, parentString, BLACK);
                 if (parent != null) {
-                    CoverageMeasurer.visitedBranch(13);
+                    CoverageMeasurer.visitedBranch(14);
                     parent.addChild(newParent);
                 } else {
-                    CoverageMeasurer.visitedBranch(14);
+                    CoverageMeasurer.visitedBranch(15);
                 }
 
                 // Convert the previous node into a child of the new parent
@@ -154,21 +155,21 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
                 // New node which was added
                 addedNode = newNode2;
             } else {
-                CoverageMeasurer.visitedBranch(15);
+                CoverageMeasurer.visitedBranch(16);
                 // Creating a new parent by splitting a previous node and converting the previous node
                 if (parent != null) {
-                    CoverageMeasurer.visitedBranch(16);
+                    CoverageMeasurer.visitedBranch(17);
                     parent.removeChild(node);
                 } else {
-                    CoverageMeasurer.visitedBranch(17);
+                    CoverageMeasurer.visitedBranch(18);
                 }
 
                 Node newParent = this.creator.createNewNode(parent, parentString, WHITE);
                 if (parent != null) {
-                    CoverageMeasurer.visitedBranch(18);
+                    CoverageMeasurer.visitedBranch(19);
                     parent.addChild(newParent);
                 } else {
-                    CoverageMeasurer.visitedBranch(19);
+                    CoverageMeasurer.visitedBranch(20);
                 }
                 // Parent node was created
                 addedNode = newParent;
@@ -180,29 +181,29 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
                 newParent.addChild(newNode1);
             }
         } else if (node.string != null && seq.length() == indexIntoString) {
-            CoverageMeasurer.visitedBranch(20);
+            CoverageMeasurer.visitedBranch(21);
             // Found a node who exactly matches a previous node
 
             // Already exists as a white node (leaf node)
             if (node.type == WHITE) {
-                CoverageMeasurer.visitedBranch(21);
+                CoverageMeasurer.visitedBranch(22);
                 return null;
             } else {
-                CoverageMeasurer.visitedBranch(22);
+                CoverageMeasurer.visitedBranch(23);
             }
 
             // Was black (branching), now white (leaf)
             node.type = WHITE;
             addedNode = node;
         } else if (node.string != null) {
-            CoverageMeasurer.visitedBranch(23);
+            CoverageMeasurer.visitedBranch(24);
             // Adding a child
             CharSequence newString = seq.subSequence(indexIntoString, seq.length());
             Node newNode = this.creator.createNewNode(node, newString.toString().toCharArray(), WHITE);
             node.addChild(newNode);
             addedNode = newNode;
         } else {
-            CoverageMeasurer.visitedBranch(24);
+            CoverageMeasurer.visitedBranch(25);
             // Add to root node
             Node newNode = this.creator.createNewNode(node, seq.toString().toCharArray(), WHITE);
             node.addChild(newNode);
