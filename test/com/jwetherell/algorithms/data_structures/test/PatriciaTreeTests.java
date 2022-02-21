@@ -17,7 +17,10 @@ import com.jwetherell.algorithms.data_structures.test.common.Utils.TestData;
 public class PatriciaTreeTests {
     private static PatriciaTreeTests testClass = null;
 
-    // @BeforeAll not available in junit 4.
+    /**
+     * Setup function with conditional to only run when the test class is instantiated.
+     * This is done to let us see how the branch coverage is affected by the entire test class.
+     */
     @Before
     public void setUp() {
         if (testClass == null) {
@@ -30,6 +33,7 @@ public class PatriciaTreeTests {
     @Test
     public void testPatriciaTrie() {
         TestData data = Utils.generateTestData(1000);
+//        System.out.println(data.string);
 
         String bstName = "PatriciaTrie";
         PatriciaTrie<String> bst = new PatriciaTrie<String>();
@@ -41,12 +45,37 @@ public class PatriciaTreeTests {
                                                      data.unsorted, data.sorted, data.invalid));
     }
 
-    @AfterClass
-    public static void tearDown() {
-        // perform all the teardown work
+    /**
+     * Add duplicates to the PatriciaTrie
+     * The .add() method of the PatriciaTrie class calls .addSequence(),
+     * which will return null in case of duplicate to .add(), which in turn will return
+     * false to the caller.
+     * Will increase the branch coverage by covering 22.
+     */
+    @Test
+    public void testPatriciaTrieAddDuplicates() {
+        System.out.println("Adding duplicates...");
+        PatriciaTrie<String> duplicateTree = new PatriciaTrie<>();
+        duplicateTree.add("Add");
+        Assert.assertFalse(duplicateTree.add("Add"));
+    }
+
+    /**
+     * Runs between every test case to see how coverage improves.
+     */
+    @After
+    public void branchUpdateBetweenTestCases() {
         System.out.printf("%.1f%% of branches are covered. \n", CoverageMeasurer.getCoverage() * 100);
         System.out.println("The branches _not_ covered by the test class are: ");
         System.out.printf("%s \n", Arrays.toString(CoverageMeasurer.getUnvisitedBranchInfo()));
+    }
+
+    /**
+     * Teardown function to reset the test class after finishing.
+     */
+    @AfterClass
+    public static void tearDown() {
+        // perform all the teardown work
         CoverageMeasurer.teardown();
 
         testClass = null;
