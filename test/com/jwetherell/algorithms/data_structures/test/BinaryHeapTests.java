@@ -1,8 +1,5 @@
 package com.jwetherell.algorithms.data_structures.test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-
 import java.util.Collection;
 
 import org.junit.Test;
@@ -12,6 +9,8 @@ import com.jwetherell.algorithms.data_structures.test.common.JavaCollectionTest;
 import com.jwetherell.algorithms.data_structures.test.common.HeapTest;
 import com.jwetherell.algorithms.data_structures.test.common.Utils;
 import com.jwetherell.algorithms.data_structures.test.common.Utils.TestData;
+
+import static org.junit.Assert.*;
 
 public class BinaryHeapTests {
 
@@ -56,7 +55,7 @@ public class BinaryHeapTests {
         String aNameMax = "Max-Heap [array]";
         BinaryHeap.BinaryHeapArray<Integer> aHeapMax = new BinaryHeap.BinaryHeapArray<Integer>(BinaryHeap.Type.MAX);
         Collection<Integer> aCollectionMax = aHeapMax.toCollection();
-        assertTrue(HeapTest.testHeap(BinaryHeap.Type.MAX, aHeapMax, Integer.class, aNameMax, 
+        assertTrue(HeapTest.testHeap(BinaryHeap.Type.MAX, aHeapMax, Integer.class, aNameMax,
                                      data.unsorted, data.sorted, data.invalid));
         assertTrue(JavaCollectionTest.testCollection(aCollectionMax, Integer.class, aNameMax,
                                                  data.unsorted, data.sorted, data.invalid));
@@ -70,7 +69,7 @@ public class BinaryHeapTests {
         String lNameMax = "Max-Heap [tree]";
         BinaryHeap.BinaryHeapTree<Integer> tHeapMax = new BinaryHeap.BinaryHeapTree<Integer>(BinaryHeap.Type.MAX);
         Collection<Integer> tCollectionMax = tHeapMax.toCollection();
-        assertTrue(HeapTest.testHeap(BinaryHeap.Type.MAX, tHeapMax, Integer.class, lNameMax, 
+        assertTrue(HeapTest.testHeap(BinaryHeap.Type.MAX, tHeapMax, Integer.class, lNameMax,
                                      data.unsorted, data.sorted, data.invalid));
         assertTrue(JavaCollectionTest.testCollection(tCollectionMax, Integer.class, lNameMax,
                                                  data.unsorted, data.sorted, data.invalid));
@@ -80,5 +79,38 @@ public class BinaryHeapTests {
         tHeapNull.add(11);
         tHeapNull.clear();
         assertNull(tHeapNull.getHeadValue()); // we expect null here
+    }
+
+    @Test
+    public void testMinHeapRemoveWithDuplicates() {
+        // Test to add duplicates and then removing one of them. This will increase branch coverage for heapDown
+        BinaryHeap.BinaryHeapArray<Integer> aHeap = new BinaryHeap.BinaryHeapArray<Integer>(BinaryHeap.Type.MIN);
+        Integer[] input = new Integer[]{1,2,2,3,4,5,6};
+        for (Integer i: input) {
+            aHeap.add(i);
+        }
+        // Can be true that a parent have two children of the same value
+        assertTrue(aHeap.validate());
+        // Root removed
+        aHeap.remove(1);
+        // Should fail as a child can't have the same value as the parent
+        assertFalse(aHeap.validate());
+    }
+
+    @Test
+    public void testMaxHeapRemoveWithDuplicates() {
+        // Test to add duplicates and then removing one of them. This will increase branch coverage for heapDown
+        BinaryHeap.BinaryHeapArray<Integer> aHeap = new BinaryHeap.BinaryHeapArray<Integer>(BinaryHeap.Type.MAX);
+        Integer[] input = new Integer[]{6,5,5,4,3,2,1};
+        for (Integer i: input) {
+            aHeap.add(i);
+        }
+        // Can be true that a parent have two children of the same value
+        assertTrue(aHeap.validate());
+        // Root removed
+        aHeap.remove(6);
+        // Should fail as a child can't have the same value as the parent
+        assertFalse(aHeap.validate());
+
     }
 }
