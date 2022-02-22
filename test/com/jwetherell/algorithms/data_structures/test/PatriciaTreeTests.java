@@ -32,8 +32,8 @@ public class PatriciaTreeTests {
 
     @Test
     public void testPatriciaTrie() {
+        System.out.println("-----------\nTesting with random data...\n-----------");
         TestData data = Utils.generateTestData(1000);
-//        System.out.println(data.string);
 
         String bstName = "PatriciaTrie";
         PatriciaTrie<String> bst = new PatriciaTrie<String>();
@@ -46,6 +46,21 @@ public class PatriciaTreeTests {
     }
 
     /**
+     * This test will always cover branch 23, the most frequent node _not_ to be covered
+     * by the randomly generated test data.
+     */
+    @Test
+    public void testPatriciaTrieAddExistingBlack() {
+        System.out.println("-----------\nAdding existing black...\n-----------");
+        PatriciaTrie<String> p = new PatriciaTrie<>();
+        p.add("Add");
+        p.add("Ask");
+        Assert.assertFalse(p.contains("A")); // if A is black, it is not stored in the Trie.
+        p.add("A");
+        Assert.assertTrue(p.contains("A"));
+    }
+
+    /**
      * Add duplicates to the PatriciaTrie
      * The .add() method of the PatriciaTrie class calls .addSequence(),
      * which will return null in case of duplicate to .add(), which in turn will return
@@ -54,9 +69,11 @@ public class PatriciaTreeTests {
      */
     @Test
     public void testPatriciaTrieAddDuplicates() {
-        System.out.println("Adding duplicates...");
+        System.out.println("-----------\nAdding duplicates...\n-----------");
         PatriciaTrie<String> duplicateTree = new PatriciaTrie<>();
         duplicateTree.add("Add");
+
+        // add method should return false if char sequence already in trie.
         Assert.assertFalse(duplicateTree.add("Add"));
     }
 
