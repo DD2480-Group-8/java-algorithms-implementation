@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.jwetherell.algorithms.CoverageMeasurer;
+
 /**
  * A k-d tree (short for k-dimensional tree) is a space-partitioning data
  * structure for organizing points in a k-dimensional space. k-d trees are a
@@ -389,17 +391,23 @@ public class KdTree<T extends KdTree.XYZPoint> implements Iterable<T> {
         KdNode lastNode = null;
         Double lastDistance = Double.MAX_VALUE;
         if (results.size() > 0) {
+            CoverageMeasurer.visitedBranch(0);
             lastNode = results.last();
             lastDistance = lastNode.id.euclideanDistance(value);
         }
         Double nodeDistance = node.id.euclideanDistance(value);
         if (nodeDistance.compareTo(lastDistance) < 0) {
-            if (results.size() == K && lastNode != null)
+            CoverageMeasurer.visitedBranch(1);
+            if (results.size() == K && lastNode != null){
+                CoverageMeasurer.visitedBranch(2);
                 results.remove(lastNode);
+            } 
             results.add(node);
         } else if (nodeDistance.equals(lastDistance)) {
+            CoverageMeasurer.visitedBranch(3);
             results.add(node);
         } else if (results.size() < K) {
+            CoverageMeasurer.visitedBranch(4);
             results.add(node);
         }
         lastNode = results.last();
@@ -412,46 +420,60 @@ public class KdTree<T extends KdTree.XYZPoint> implements Iterable<T> {
         // Search children branches, if axis aligned distance is less than
         // current distance
         if (lesser != null && !examined.contains(lesser)) {
+            CoverageMeasurer.visitedBranch(5);
             examined.add(lesser);
 
             double nodePoint = Double.MIN_VALUE;
             double valuePlusDistance = Double.MIN_VALUE;
             if (axis == X_AXIS) {
+                CoverageMeasurer.visitedBranch(6);
                 nodePoint = node.id.x;
                 valuePlusDistance = value.x - lastDistance;
             } else if (axis == Y_AXIS) {
+                CoverageMeasurer.visitedBranch(7);
                 nodePoint = node.id.y;
                 valuePlusDistance = value.y - lastDistance;
             } else {
+                CoverageMeasurer.visitedBranch(8);
                 nodePoint = node.id.z;
                 valuePlusDistance = value.z - lastDistance;
             }
             boolean lineIntersectsCube = ((valuePlusDistance <= nodePoint) ? true : false);
 
             // Continue down lesser branch
-            if (lineIntersectsCube)
+            if (lineIntersectsCube){
+                CoverageMeasurer.visitedBranch(9);
                 searchNode(value, lesser, K, results, examined);
+            }
+                
         }
         if (greater != null && !examined.contains(greater)) {
+            CoverageMeasurer.visitedBranch(10);
             examined.add(greater);
 
             double nodePoint = Double.MIN_VALUE;
             double valuePlusDistance = Double.MIN_VALUE;
             if (axis == X_AXIS) {
+                CoverageMeasurer.visitedBranch(11);
                 nodePoint = node.id.x;
                 valuePlusDistance = value.x + lastDistance;
             } else if (axis == Y_AXIS) {
+                CoverageMeasurer.visitedBranch(12);
                 nodePoint = node.id.y;
                 valuePlusDistance = value.y + lastDistance;
             } else {
+                CoverageMeasurer.visitedBranch(13);
                 nodePoint = node.id.z;
                 valuePlusDistance = value.z + lastDistance;
             }
             boolean lineIntersectsCube = ((valuePlusDistance >= nodePoint) ? true : false);
 
             // Continue down greater branch
-            if (lineIntersectsCube)
+            if (lineIntersectsCube){
+                CoverageMeasurer.visitedBranch(14);
                 searchNode(value, greater, K, results, examined);
+            }
+                
         }
     }
 
