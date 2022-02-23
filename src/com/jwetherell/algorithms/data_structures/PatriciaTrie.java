@@ -2,6 +2,7 @@ package com.jwetherell.algorithms.data_structures;
 
 import java.util.Arrays;
 
+import com.jwetherell.algorithms.CoverageMeasurer;
 import com.jwetherell.algorithms.data_structures.interfaces.ITree;
 
 /**
@@ -62,8 +63,13 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
      *         sequence already exists.
      */
     protected Node addSequence(C seq) {
-        if (root == null)
+        if (root == null) {
             root = this.creator.createNewNode(null, null, BLACK);
+            CoverageMeasurer.visitedBranch(0);
+        } else {
+            CoverageMeasurer.visitedBranch(1);
+        }
+
 
         int indexIntoParent = -1;
         int indexIntoString = -1;
@@ -71,26 +77,36 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
         for (int i = 0; i <= seq.length();) {
             indexIntoString = i;
             indexIntoParent++;
-            if (i == seq.length())
+            if (i == seq.length()) {
+                CoverageMeasurer.visitedBranch(2);
                 break;
+            } else {
+                CoverageMeasurer.visitedBranch(3);
+            }
 
             char c = seq.charAt(i);
             if (node.partOfThis(c, indexIntoParent)) {
+                CoverageMeasurer.visitedBranch(4);
                 // Node has a char which is equal to char c at that index
                 i++;
                 continue;
             } else if (node.string != null && indexIntoParent < node.string.length) {
+                CoverageMeasurer.visitedBranch(5);
                 // string is equal to part of this Node's string
                 break;
+            } else {
+                CoverageMeasurer.visitedBranch(6);
             }
 
             Node child = node.getChildBeginningWithChar(c);
             if (child != null) {
+                CoverageMeasurer.visitedBranch(7);
                 // Found a child node starting with char c
                 indexIntoParent = 0;
                 node = child;
                 i++;
             } else {
+                CoverageMeasurer.visitedBranch(8);
                 // Node doesn't have a child starting with char c
                 break;
             }
@@ -99,19 +115,30 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
         Node addedNode = null;
         Node parent = node.parent;
         if (node.string != null && indexIntoParent < node.string.length) {
+            CoverageMeasurer.visitedBranch(9);
             char[] parentString = Arrays.copyOfRange(node.string, 0, indexIntoParent);
             char[] refactorString = Arrays.copyOfRange(node.string, indexIntoParent, node.string.length);
 
             if (indexIntoString < seq.length()) {
+                CoverageMeasurer.visitedBranch(10);
                 // Creating a new parent by splitting a previous node and adding a new node
 
                 // Create new parent
-                if (parent != null) 
+                if (parent != null)  {
+                    CoverageMeasurer.visitedBranch(11);
                     parent.removeChild(node);
+                } else {
+                    CoverageMeasurer.visitedBranch(12);
+                }
+
 
                 Node newParent = this.creator.createNewNode(parent, parentString, BLACK);
-                if (parent != null)
+                if (parent != null) {
+                    CoverageMeasurer.visitedBranch(13);
                     parent.addChild(newParent);
+                } else {
+                    CoverageMeasurer.visitedBranch(14);
+                }
 
                 // Convert the previous node into a child of the new parent
                 Node newNode1 = node;
@@ -127,14 +154,22 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
                 // New node which was added
                 addedNode = newNode2;
             } else {
+                CoverageMeasurer.visitedBranch(15);
                 // Creating a new parent by splitting a previous node and converting the previous node
-                if (parent != null)
+                if (parent != null) {
+                    CoverageMeasurer.visitedBranch(16);
                     parent.removeChild(node);
+                } else {
+                    CoverageMeasurer.visitedBranch(17);
+                }
 
                 Node newParent = this.creator.createNewNode(parent, parentString, WHITE);
-                if (parent != null)
+                if (parent != null) {
+                    CoverageMeasurer.visitedBranch(18);
                     parent.addChild(newParent);
-
+                } else {
+                    CoverageMeasurer.visitedBranch(19);
+                }
                 // Parent node was created
                 addedNode = newParent;
 
@@ -145,22 +180,29 @@ public class PatriciaTrie<C extends CharSequence> implements ITree<C> {
                 newParent.addChild(newNode1);
             }
         } else if (node.string != null && seq.length() == indexIntoString) {
+            CoverageMeasurer.visitedBranch(20);
             // Found a node who exactly matches a previous node
 
             // Already exists as a white node (leaf node)
-            if (node.type == WHITE)
+            if (node.type == WHITE) {
+                CoverageMeasurer.visitedBranch(21);
                 return null;
+            } else {
+                CoverageMeasurer.visitedBranch(22);
+            }
 
             // Was black (branching), now white (leaf)
             node.type = WHITE;
             addedNode = node;
         } else if (node.string != null) {
+            CoverageMeasurer.visitedBranch(23);
             // Adding a child
             CharSequence newString = seq.subSequence(indexIntoString, seq.length());
             Node newNode = this.creator.createNewNode(node, newString.toString().toCharArray(), WHITE);
             node.addChild(newNode);
             addedNode = newNode;
         } else {
+            CoverageMeasurer.visitedBranch(24);
             // Add to root node
             Node newNode = this.creator.createNewNode(node, seq.toString().toCharArray(), WHITE);
             node.addChild(newNode);
