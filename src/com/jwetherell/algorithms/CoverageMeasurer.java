@@ -1,8 +1,5 @@
 package com.jwetherell.algorithms;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 public class CoverageMeasurer {
 
     // just instantiate to 100 to prevent index error if function is used in other tests.
@@ -75,11 +72,9 @@ public class CoverageMeasurer {
         return branches.length;
     }
 
-    public static void printResults() {
+    public static void printUnvisitedBranches() {
         for (int i = 0 ; i < getNumberOfBranches() ; i++) {
-            if (branches[i]) {
-                System.out.printf("Branch %s visited%n", i);
-            } else {
+            if (!branches[i]) {
                 System.out.printf("Branch %s not visited%n", i);
             }
         }
