@@ -27,18 +27,4 @@ public class RedBlackTreeTests {
         assertTrue(JavaCollectionTest.testCollection(bstCollection, Integer.class, bstName,
                                                      data.unsorted, data.sorted, data.invalid));
     }
-
-    @Test
-    public void testAsdf() {
-        TestData data = Utils.generateTestData(1000);
-
-        String bstName = "Red-Black Tree";
-        RedBlackTree<Integer> bst = new RedBlackTree<Integer>();
-        Collection<Integer> bstCollection = bst.toCollection();
-
-        assertTrue(TreeTest.testTree(bst, Integer.class, bstName,
-                data.unsorted, data.invalid));
-        assertTrue(JavaCollectionTest.testCollection(bstCollection, Integer.class, bstName,
-                data.unsorted, data.sorted, data.invalid));
-    }
 }

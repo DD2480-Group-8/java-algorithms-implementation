@@ -3,6 +3,7 @@ package com.jwetherell.algorithms.data_structures;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Comparator;
+import com.jwetherell.algorithms.CoverageMeasurer;
 
 /**
  * Matrx. This Matrix implementation is designed to be more efficient
@@ -158,31 +159,42 @@ public class Matrix<T extends Number> {
 
     public Matrix<T> add(Matrix<T> input) {
         Matrix<T> output = new Matrix<T>(this.rows, this.cols);
-        if ((this.cols != input.cols) || (this.rows != input.rows))
+        if ((this.cols != input.cols) || (this.rows != input.rows)){
+            CoverageMeasurer.visitedBranch(0);
             return output;
+        }
         for (int r = 0; r < output.rows; r++) {
+            CoverageMeasurer.visitedBranch(1);
             for (int c = 0; c < output.cols; c++) {
+                CoverageMeasurer.visitedBranch(2);
                 for (int i = 0; i < cols; i++) {
+                    CoverageMeasurer.visitedBranch(3);
                     T m1 = this.get(r, c);
                     T m2 = input.get(r, c);
                     T result;
                     /* TODO: This is ugly and how to handle number overflow? */
                     if (m1 instanceof BigDecimal || m2 instanceof BigDecimal) {
+                        CoverageMeasurer.visitedBranch(4);
                         BigDecimal result2 = ((BigDecimal)m1).add((BigDecimal)m2);
                         result = (T)result2;
                     } else if (m1 instanceof BigInteger || m2 instanceof BigInteger) {
+                        CoverageMeasurer.visitedBranch(5);
                         BigInteger result2 = ((BigInteger)m1).add((BigInteger)m2);
                         result = (T)result2;
                     } else if (m1 instanceof Long || m2 instanceof Long) {
+                        CoverageMeasurer.visitedBranch(6);
                         Long result2 = (m1.longValue() + m2.longValue());
                         result = (T)result2;
                     } else if (m1 instanceof Double || m2 instanceof Double) {
+                        CoverageMeasurer.visitedBranch(7);
                         Double result2 = (m1.doubleValue() + m2.doubleValue());
                         result = (T)result2;
                     } else if (m1 instanceof Float || m2 instanceof Float) {
+                        CoverageMeasurer.visitedBranch(8);
                         Float result2 = (m1.floatValue() + m2.floatValue());
                         result = (T)result2;
                     } else {
+                        CoverageMeasurer.visitedBranch(9);
                         // Integer
                         Integer result2 = (m1.intValue() + m2.intValue());
                         result = (T)result2;
@@ -349,8 +361,11 @@ public class Matrix<T extends Number> {
             T t1 = matrix[i];
             T t2 = m.matrix[i];
             int result = comparator.compare(t1, t2);
-            if (result!=0)
+            if (result!=0){
                 return false;
+            }
+
+
         }
         return true;
     }
