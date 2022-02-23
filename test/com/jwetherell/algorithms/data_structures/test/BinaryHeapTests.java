@@ -58,11 +58,6 @@ public class BinaryHeapTests {
         tHeapNull.add(11);
         tHeapNull.clear();
         assertNull(tHeapNull.getHeadValue()); // we expect null here
-//
-//        // Added to count branch coverage manually
-//        System.out.printf("%s%% (%s/%s) of branches are covered in minHeap.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
-//        CoverageMeasurer.printResults();
-//        CoverageMeasurer.teardown();
     }
 
     @Test
