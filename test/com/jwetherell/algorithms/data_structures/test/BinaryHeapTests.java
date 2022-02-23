@@ -3,6 +3,8 @@ package com.jwetherell.algorithms.data_structures.test;
 import java.util.Collection;
 
 import com.jwetherell.algorithms.CoverageMeasurer;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.jwetherell.algorithms.data_structures.BinaryHeap;
@@ -14,12 +16,19 @@ import com.jwetherell.algorithms.data_structures.test.common.Utils.TestData;
 import static org.junit.Assert.*;
 
 public class BinaryHeapTests {
+    private static BinaryHeapTests testClass = null;
+
+    @Before
+    public void setUp() {
+        if (testClass == null) {
+            testClass = this;
+            // perform all the setup code
+            CoverageMeasurer.setup(17);
+        }
+    }
 
     @Test
     public void testMinHeap() {
-        // Added to count branch coverage manually
-        CoverageMeasurer.setup(17); // Change to number of branches
-
         TestData data = Utils.generateTestData(2500);
 
         String aNameMin = "Min-Heap [array]";
@@ -49,17 +58,17 @@ public class BinaryHeapTests {
         tHeapNull.add(11);
         tHeapNull.clear();
         assertNull(tHeapNull.getHeadValue()); // we expect null here
-
-        // Added to count branch coverage manually
-        System.out.printf("%s%% (%s/%s) of branches are covered in minHeap.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
-        CoverageMeasurer.printResults();
-        CoverageMeasurer.teardown();
+//
+//        // Added to count branch coverage manually
+//        System.out.printf("%s%% (%s/%s) of branches are covered in minHeap.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
+//        CoverageMeasurer.printResults();
+//        CoverageMeasurer.teardown();
     }
 
     @Test
     public void testMaxHeap() {
         // Added to count branch coverage manually
-        CoverageMeasurer.setup(17); // Change to number of branches
+//        CoverageMeasurer.setup(17); // Change to number of branches
 
         TestData data = Utils.generateTestData(2500);
 
@@ -92,9 +101,9 @@ public class BinaryHeapTests {
         assertNull(tHeapNull.getHeadValue()); // we expect null here
 
         // Added to count branch coverage manually
-        System.out.printf("%s%% (%s/%s) of branches are covered in maxHeap.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
-        CoverageMeasurer.printResults();
-        CoverageMeasurer.teardown();
+//        System.out.printf("%s%% (%s/%s) of branches are covered in maxHeap.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
+//        CoverageMeasurer.printResults();
+//        CoverageMeasurer.teardown();
     }
 
     @Test
@@ -128,5 +137,15 @@ public class BinaryHeapTests {
         // Should fail as a child can't have the same value as the parent
         assertFalse(aHeap.validate());
 
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        // perform all the teardown work
+        System.out.printf("%.1f%% (%s/%s) of branches are covered in BinaryHeapArray:heapDown.%n", CoverageMeasurer.getCoverage()* 100, CoverageMeasurer.getNumberOfVisitedBranches(), CoverageMeasurer.getNumberOfBranches());
+        CoverageMeasurer.printUnvisitedBranches();
+        CoverageMeasurer.teardown();
+
+        testClass = null;
     }
 }
