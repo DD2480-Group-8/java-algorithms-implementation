@@ -190,50 +190,11 @@ public interface BinaryHeap<T extends Comparable<T>> extends IHeap<T> {
 
             int leftIndex = getLeftIndex(index);
             int rightIndex = getRightIndex(index);
-            T left = (leftIndex != Integer.MIN_VALUE && leftIndex < this.size) ? this.array[leftIndex] : null;
-            T right = (rightIndex != Integer.MIN_VALUE && rightIndex < this.size) ? this.array[rightIndex] : null;
 
-            if (left == null && right == null) {
-                // Nothing to do here
-                return;
-            }
-
-            T nodeToMove = null;
-            int nodeToMoveIndex = -1;
-            if ((type == Type.MIN && left != null && right != null && value.compareTo(left) > 0 && value.compareTo(right) > 0)
-                || (type == Type.MAX && left != null && right != null && value.compareTo(left) < 0 && value.compareTo(right) < 0)) {
-                // Both children are greater/lesser than node
-                if ((right!=null) && 
-                    ((type == Type.MIN && (right.compareTo(left) < 0)) || ((type == Type.MAX && right.compareTo(left) > 0)))
-                ) {
-                    // Right is greater/lesser than left
-                    nodeToMove = right;
-                    nodeToMoveIndex = rightIndex;
-                } else if ((left!=null) && 
-                           ((type == Type.MIN && left.compareTo(right) < 0) || (type == Type.MAX && left.compareTo(right) > 0))
-                ) {
-                    // Left is greater/lesser than right
-                    nodeToMove = left;
-                    nodeToMoveIndex = leftIndex;
-                } else {
-                    // Both children are equal, use right
-                    nodeToMove = right;
-                    nodeToMoveIndex = rightIndex;
-                }
-            } else if ((type == Type.MIN && right != null && value.compareTo(right) > 0)
-                       || (type == Type.MAX && right != null && value.compareTo(right) < 0)
-            ) {
-                // Right is greater/lesser than node
-                nodeToMove = right;
-                nodeToMoveIndex = rightIndex;
-            } else if ((type == Type.MIN && left != null && value.compareTo(left) > 0)
-                       || (type == Type.MAX && left != null && value.compareTo(left) < 0)
-            ) {
-                // Left is greater/lesser than node
-                nodeToMove = left;
-                nodeToMoveIndex = leftIndex;
-            }
+            int nodeToMoveIndex = heapDownHelper(value, leftIndex, rightIndex);
             // No node to move, stop recursion
+            T nodeToMove = (nodeToMoveIndex != -1) ? this.array[nodeToMoveIndex] : null;
+
             if (nodeToMove == null)
                 return;
 
@@ -242,6 +203,46 @@ public interface BinaryHeap<T extends Comparable<T>> extends IHeap<T> {
             this.array[index] = nodeToMove;
 
             heapDown(nodeToMoveIndex);
+        }
+
+        // Refactored part of heapDown. CC of 37 according to Lizard. heapDown now only have 4 according to Lizard
+        private int heapDownHelper(T value, int leftIndex, int rightIndex) {
+            T left = (leftIndex != Integer.MIN_VALUE && leftIndex < this.size) ? this.array[leftIndex] : null;
+            T right = (rightIndex != Integer.MIN_VALUE && rightIndex < this.size) ? this.array[rightIndex] : null;
+
+            if (left == null && right == null) {
+                // Nothing to do here
+                return -1;
+            }
+
+            int indexOfNodeToReturn = -1;
+            if ((type == Type.MIN && left != null && right != null && value.compareTo(left) > 0 && value.compareTo(right) > 0)
+                    || (type == Type.MAX && left != null && right != null && value.compareTo(left) < 0 && value.compareTo(right) < 0)) {
+                // Both children are greater/lesser than node
+                if (type == Type.MIN && right.compareTo(left) < 0 || type == Type.MAX && right.compareTo(left) > 0
+                ) {
+                    // Right is greater/lesser than left
+                    indexOfNodeToReturn = rightIndex;
+                } else if (type == Type.MIN && left.compareTo(right) < 0 || type == Type.MAX && left.compareTo(right) > 0
+                ) {
+                    // Left is greater/lesser than right
+                    indexOfNodeToReturn = leftIndex;
+                } else {
+                    // Both children are equal, use right
+                    indexOfNodeToReturn = rightIndex;
+                }
+            } else if ((type == Type.MIN && right != null && value.compareTo(right) > 0)
+                    || (type == Type.MAX && right != null && value.compareTo(right) < 0)
+            ) {
+                // Right is greater/lesser than node
+                indexOfNodeToReturn = rightIndex;
+            } else if ((type == Type.MIN && left != null && value.compareTo(left) > 0)
+                    || (type == Type.MAX && left != null && value.compareTo(left) < 0)
+            ) {
+                // Left is greater/lesser than node
+                indexOfNodeToReturn = leftIndex;
+            }
+            return indexOfNodeToReturn;
         }
 
         // Grow the array by 50%
