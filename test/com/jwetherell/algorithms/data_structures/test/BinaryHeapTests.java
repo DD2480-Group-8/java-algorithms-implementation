@@ -108,7 +108,7 @@ public class BinaryHeapTests {
 
     @Test
     public void testMinHeapRemoveWithDuplicates() {
-        // Test to add duplicates and then removing one of them. This will increase branch coverage for heapDown
+        // Test to add duplicates and then remove the root. This will increase branch coverage for heapDown
         BinaryHeap.BinaryHeapArray<Integer> aHeap = new BinaryHeap.BinaryHeapArray<Integer>(BinaryHeap.Type.MIN);
         Integer[] input = new Integer[]{1,2,2,3,4,5,6};
         for (Integer i: input) {
@@ -124,7 +124,7 @@ public class BinaryHeapTests {
 
     @Test
     public void testMaxHeapRemoveWithDuplicates() {
-        // Test to add duplicates and then removing one of them. This will increase branch coverage for heapDown
+        // Test to add duplicates and then remove the root. This will increase branch coverage for heapDown
         BinaryHeap.BinaryHeapArray<Integer> aHeap = new BinaryHeap.BinaryHeapArray<Integer>(BinaryHeap.Type.MAX);
         Integer[] input = new Integer[]{6,5,5,4,3,2,1};
         for (Integer i: input) {
