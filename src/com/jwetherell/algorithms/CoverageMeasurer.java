@@ -57,4 +57,12 @@ public class CoverageMeasurer {
         return numberOfVisitedBranches / numberOfBranches;
     }
 
+    /**
+     * used to return the array of branches.
+     * @param branchNumber - the branch that is visited.
+     */
+    public static boolean[] getArray() {
+        return branches;
+    }
+
 }

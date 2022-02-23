@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import com.jwetherell.algorithms.data_structures.interfaces.ITree;
+import com.jwetherell.algorithms.CoverageMeasurer;
 
 /**
  * A binary search tree (BST), which may sometimes also be called an ordered or
@@ -350,18 +351,23 @@ public class BinarySearchTree<T extends Comparable<T>> implements ITree<T> {
      */
     protected void replaceNodeWithNode(Node<T> nodeToRemoved, Node<T> replacementNode) {
         if (replacementNode != null) {
+            CoverageMeasurer.visitedBranch(0);
             // Save for later
             Node<T> replacementNodeLesser = replacementNode.lesser;
             Node<T> replacementNodeGreater = replacementNode.greater;
 
             // Replace replacementNode's branches with nodeToRemove's branches
             Node<T> nodeToRemoveLesser = nodeToRemoved.lesser;
+
             if (nodeToRemoveLesser != null && nodeToRemoveLesser != replacementNode) {
+                CoverageMeasurer.visitedBranch(1);
                 replacementNode.lesser = nodeToRemoveLesser;
                 nodeToRemoveLesser.parent = replacementNode;
             }
             Node<T> nodeToRemoveGreater = nodeToRemoved.greater;
+
             if (nodeToRemoveGreater != null && nodeToRemoveGreater != replacementNode) {
+                CoverageMeasurer.visitedBranch(2);
                 replacementNode.greater = nodeToRemoveGreater;
                 nodeToRemoveGreater.parent = replacementNode;
             }
@@ -369,36 +375,58 @@ public class BinarySearchTree<T extends Comparable<T>> implements ITree<T> {
             // Remove link from replacementNode's parent to replacement
             Node<T> replacementParent = replacementNode.parent;
             if (replacementParent != null && replacementParent != nodeToRemoved) {
+                CoverageMeasurer.visitedBranch(3);
                 Node<T> replacementParentLesser = replacementParent.lesser;
                 Node<T> replacementParentGreater = replacementParent.greater;
                 if (replacementParentLesser != null && replacementParentLesser == replacementNode) {
+                    CoverageMeasurer.visitedBranch(4);
                     replacementParent.lesser = replacementNodeGreater;
-                    if (replacementNodeGreater != null)
+                    if (replacementNodeGreater != null){
+                        CoverageMeasurer.visitedBranch(5);
                         replacementNodeGreater.parent = replacementParent;
+                    }
+
                 } else if (replacementParentGreater != null && replacementParentGreater == replacementNode) {
+                    CoverageMeasurer.visitedBranch(6);
                     replacementParent.greater = replacementNodeLesser;
-                    if (replacementNodeLesser != null)
+                    if (replacementNodeLesser != null){
+                        CoverageMeasurer.visitedBranch(7);
                         replacementNodeLesser.parent = replacementParent;
+                    }
+
                 }
             }
         }
+
 
         // Update the link in the tree from the nodeToRemoved to the
         // replacementNode
         Node<T> parent = nodeToRemoved.parent;
         if (parent == null) {
+            CoverageMeasurer.visitedBranch(8);
             // Replacing the root node
             root = replacementNode;
-            if (root != null)
+            if (root != null){
+                CoverageMeasurer.visitedBranch(9);
                 root.parent = null;
+            }
+
         } else if (parent.lesser != null && (parent.lesser.id.compareTo(nodeToRemoved.id) == 0)) {
+            CoverageMeasurer.visitedBranch(10);
             parent.lesser = replacementNode;
-            if (replacementNode != null)
+            if (replacementNode != null){
+                CoverageMeasurer.visitedBranch(11);
                 replacementNode.parent = parent;
+            }
+
         } else if (parent.greater != null && (parent.greater.id.compareTo(nodeToRemoved.id) == 0)) {
+            CoverageMeasurer.visitedBranch(12);
             parent.greater = replacementNode;
-            if (replacementNode != null)
+            if (replacementNode != null){
+                CoverageMeasurer.visitedBranch(13);
                 replacementNode.parent = parent;
+            }
+
         }
         size--;
     }

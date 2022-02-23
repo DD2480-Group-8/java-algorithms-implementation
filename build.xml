@@ -85,6 +85,32 @@
     </junit>
   </target>
 
+  <target name="run_test_BST" depends="tests_jar">
+    <junit printsummary="on" haltonfailure="yes">
+      <jvmarg value="-server"/>
+      <classpath>
+        <path refid="test.class.path" />
+      </classpath>
+      <formatter type="brief" usefile="false" />
+      <batchtest>
+        <fileset dir="${test}" includes="**/test/BST_replaceNodeWithNodeTest.java" />
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="run_test_RBT" depends="tests_jar">
+    <junit printsummary="on" haltonfailure="yes">
+      <jvmarg value="-server"/>
+      <classpath>
+        <path refid="test.class.path" />
+      </classpath>
+      <formatter type="brief" usefile="false" />
+      <batchtest>
+        <fileset dir="${test}" includes="**/test/RBT_balanceAfterDeleteTest.java" />
+      </batchtest>
+    </junit>
+  </target>
+
   <target name="data_structures" depends="tests_jar" >
     <java classname="com.jwetherell.algorithms.data_structures.timing.DataStructuresTiming">
       <classpath>

@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses( {
+//                BST_replaceNodeWithNodeTest.class
                 AVLTreeTests.class,
                 BinaryHeapTests.class,
                 BinarySearchTreeTests.class,

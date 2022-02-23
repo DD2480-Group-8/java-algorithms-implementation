@@ -1,10 +1,12 @@
 package com.jwetherell.algorithms.data_structures;
+import com.jwetherell.algorithms.CoverageMeasurer;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * A red–black tree is a type of self-balancing binary search tree, a data
@@ -285,6 +287,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
      */
     private boolean balanceAfterDelete(RedBlackNode<T> node) {
         if (node.parent == null) {
+            CoverageMeasurer.visitedBranch(0);
             // Case 1 - node is the new root.
             return true;
         }
@@ -292,22 +295,26 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         RedBlackNode<T> parent = (RedBlackNode<T>) node.parent;
         RedBlackNode<T> sibling = node.getSibling();
         if (sibling.color == RED) {
+            CoverageMeasurer.visitedBranch(1);
             // Case 2 - sibling is red.
             parent.color = RED;
             sibling.color = BLACK;
             if (node == parent.lesser) {
+                CoverageMeasurer.visitedBranch(2);
                 rotateLeft(parent);
 
                 // Rotation, need to update parent/sibling
                 parent = (RedBlackNode<T>) node.parent;
                 sibling = node.getSibling();
             } else if (node == parent.greater) {
+                CoverageMeasurer.visitedBranch(3);
                 rotateRight(parent);
 
                 // Rotation, need to update parent/sibling
                 parent = (RedBlackNode<T>) node.parent;
                 sibling = node.getSibling();
             } else {
+                CoverageMeasurer.visitedBranch(4);
                 throw new RuntimeException("Yikes! I'm not related to my parent. " + node.toString());
             }
         }
@@ -317,6 +324,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
             && ((RedBlackNode<T>) sibling.lesser).color == BLACK
             && ((RedBlackNode<T>) sibling.greater).color == BLACK
         ) {
+            CoverageMeasurer.visitedBranch(5);
             // Case 3 - parent, sibling, and sibling's children are black.
             sibling.color = RED;
             return balanceAfterDelete(parent);
@@ -327,6 +335,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
             && ((RedBlackNode<T>) sibling.lesser).color == BLACK
             && ((RedBlackNode<T>) sibling.greater).color == BLACK
         ) {
+            CoverageMeasurer.visitedBranch(6);
             // Case 4 - sibling and sibling's children are black, but parent is red.
             sibling.color = RED;
             parent.color = BLACK;
@@ -334,6 +343,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         }
 
         if (sibling.color == BLACK) {
+            CoverageMeasurer.visitedBranch(7);
             // Case 5 - sibling is black, sibling's left child is red,
             // sibling's right child is black, and node is the left child of
             // its parent.
@@ -341,6 +351,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
                 && ((RedBlackNode<T>) sibling.lesser).color == RED
                 && ((RedBlackNode<T>) sibling.greater).color == BLACK
             ) {
+                CoverageMeasurer.visitedBranch(8);
                 sibling.color = RED;
                 ((RedBlackNode<T>) sibling.lesser).color = RED;
 
@@ -353,6 +364,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
                        && ((RedBlackNode<T>) sibling.lesser).color == BLACK
                        && ((RedBlackNode<T>) sibling.greater).color == RED
             ) {
+                CoverageMeasurer.visitedBranch(9);
                 sibling.color = RED;
                 ((RedBlackNode<T>) sibling.greater).color = RED;
 
@@ -369,12 +381,15 @@ public class RedBlackTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         sibling.color = parent.color;
         parent.color = BLACK;
         if (node == parent.lesser) {
+            CoverageMeasurer.visitedBranch(10);
             ((RedBlackNode<T>) sibling.greater).color = BLACK;
             rotateLeft(node.parent);
         } else if (node == parent.greater) {
+            CoverageMeasurer.visitedBranch(11);
             ((RedBlackNode<T>) sibling.lesser).color = BLACK;
             rotateRight(node.parent);
         } else {
+            CoverageMeasurer.visitedBranch(12);
             throw new RuntimeException("Yikes! I'm not related to my parent. " + node.toString());
         }
 
