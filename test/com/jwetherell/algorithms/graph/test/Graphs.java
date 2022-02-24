@@ -714,7 +714,7 @@ public class Graphs {
             final Map<Vertex<Integer>, Map<Vertex<Integer>, Integer>> pathWeights = FloydWarshall.getAllPairsShortestPaths(directedWithNegWeights.graph);
             final Map<Vertex<Integer>, Map<Vertex<Integer>, Integer>> result = new HashMap<Vertex<Integer>, Map<Vertex<Integer>, Integer>>();
 
-            System.out.printf("%s%% of branches are covered.%n", CoverageMeasurer.getCoverage()* 100);
+            System.out.printf("%s%% of branches are covered in FloydWarshall.%n", CoverageMeasurer.getCoverage()* 100);
             CoverageMeasurer.teardown();
             {
                 // Ideal weights
