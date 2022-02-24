@@ -111,10 +111,7 @@ There are multiple if-statements in the function BinaryHeapArray:heapDown. The f
   }
   ```
   As the array is a class variable, only the leftIndex, rightIndex and the root value need to be sent as parameters.
- 
-Simon refactored BinaryHeapArray:heapDown to reduce its CC from 41 to 4. The commit can be seen [here](https://github.com/DD2480-Group-8/java-algorithms-implementation/commit/6f860e542bbe2d54af00206099c673d1b9fa497f) and the updated code [here](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/6f860e542bbe2d54af00206099c673d1b9fa497f/src/com/jwetherell/algorithms/data_structures/BinaryHeap.java#L186). This followed the plan stated before for the BinaryHeapArray:heapDown function.
- 
- 
+  
 ### **PatriciaTrie-addSequence**
 There are a few redundant if statements in the addSequence function. Simply removing these decreases CC from 19 to 15, causing it to not even raise warnings in lizard.
 They are redundant since the conditionals are
@@ -268,8 +265,11 @@ The branches _not_ covered by the test class are:
  
 Test cases added: 
 
-[testPatriciaTrieAddExistingBlack()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/PatriciaTreeTests.java#L53)  
-[testPatriciaTrieAddDuplicates()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/PatriciaTreeTests.java#L71)
+ **test/com/jwetherell/algorithms/data_structures/test/PatriciaTreeTests.java**
+
+ [testPatriciaTrieAddExistingBlack()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/PatriciaTreeTests.java#L53)  
+
+ [testPatriciaTrieAddDuplicates()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/PatriciaTreeTests.java#L71)
 
  
 diff:
@@ -290,10 +290,20 @@ New coverage:
 ```
  
 Test cases added:
+ 
+**test/com/jwetherell/algorithms/data_structures/test/BinaryHeapTests.java**
+ 
 [testMinHeapRemoveWithDuplicates()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/BinaryHeapTests.java#L97)  
-[testMaxHeapRemoveWithDuplicates()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/BinaryHeapTests.java#L113)  
-[division()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java#L229) (5 lines)  
-[testArrayListSetAndToString()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/ListTests.java#L19)  
+
+ [testMaxHeapRemoveWithDuplicates()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/BinaryHeapTests.java#L113) 
+
+ **test/com/jwetherell/algorithms/mathematics/test/Mathematics.java**
+
+ [division()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java#L229) (5 lines)  
+
+ **test/com/jwetherell/algorithms/data_structures/test/ListTests.java**
+
+ [testArrayListSetAndToString()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/ListTests.java#L19)  
 
  
 diff:
@@ -314,9 +324,14 @@ New coverage:
  
 Test cases added:  
 testKdTree()  
-added 2 new testcases within this function.  
-[test case 1](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/KdTreeTests.java#L49)  
-[test case 2](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/KdTreeTests.java#L55)  
+
+ added 2 new testcases within this function.  
+ 
+ **test/com/jwetherell/algorithms/data_structures/test/KdTreeTests.java**
+
+ [test case 1](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/KdTreeTests.java#L49)  
+
+ [test case 2](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/KdTreeTests.java#L55)  
 
  
 diff:
@@ -336,8 +351,12 @@ New coverage:
 ```
  
 Test cases added:
-[multiplication()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java#L153)  
-added 2 new testcases within this function.
+ 
+ **test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java**
+
+ [multiplication()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java#L153)  
+
+ added 2 new testcases within this function.
  
 diff:
 ```
@@ -356,8 +375,12 @@ New coverage:
 ```
  
 Test cases added:  
-testMatrixAddition()  
-[added 6 new testcases within this function.](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/MatrixTests.java#L106)  
+
+ **test/com/jwetherell/algorithms/data_structures/test/MatrixTests**
+
+ testMatrixAddition()  
+
+ [added 6 new testcases within this function.](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/MatrixTests.java#L106)  
   
 diff:
 ```
@@ -387,5 +410,22 @@ Current state of the group is between "In Place" and "Working well" as some of t
 ## **`Overall experience`**
  
 The overall experience of this project has been good, although a lot more individual work compare to the two previous assignments. It's been interesting to dive into a completely unfamiliar codebase and try to get a grasp of how the software works. The project we chose doesn't really have a clear flow, it is rather a library to be imported into another project and used as stand alone methods. This has probably made it easier to understand since you only need to consider a single class to understand what it does - there is not any classes that depend on eachother, but there is a clear hierarchy through interfaces etc. We've learned a lot more about the structure of projects, since IntelliJ required some configuring, as well as experience of a new build tool, ant. Overall, the experience has been fun and has definitely given us more confidence in trying to contribute to OSS.
+ 
+ ## **`P+ Sections`**
+**Simon**
+ 
+Refactored BinaryHeapArray:heapDown to reduce its CC from 41 to 4. The commit can be seen [here](https://github.com/DD2480-Group-8/java-algorithms-implementation/commit/6f860e542bbe2d54af00206099c673d1b9fa497f) and the updated code [here](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/6f860e542bbe2d54af00206099c673d1b9fa497f/src/com/jwetherell/algorithms/data_structures/BinaryHeap.java#L186). This followed the plan stated before for the BinaryHeapArray:heapDown function.
 
+ Two extra tests have been written (same as linked above):
+ 
+ **test/com/jwetherell/algorithms/mathematics/test/Mathematics.java**
+
+ [division()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/mathematics/test/MathematicsTest.java#L229)  
+
+ **test/com/jwetherell/algorithms/data_structures/test/ListTests.java**
+
+ [testArrayListSetAndToString()](https://github.com/DD2480-Group-8/java-algorithms-implementation/blob/ab03b56b57937b4c94e0de433ac8c09171bcc8b0/test/com/jwetherell/algorithms/data_structures/test/ListTests.java#L19)  
+ 
+ 
+ Branch [issue/2](https://github.com/DD2480-Group-8/java-algorithms-implementation/commits/issue/2) can be examined for systematic commit messages. 
 
