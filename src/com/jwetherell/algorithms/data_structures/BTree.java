@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
 
+import com.jwetherell.algorithms.CoverageMeasurer;
 import com.jwetherell.algorithms.data_structures.interfaces.ITree;
 
 /**
@@ -330,12 +331,16 @@ public class BTree<T extends Comparable<T>> implements ITree<T> {
         Node<T> rightNeighbor = null;
         int rightNeighborSize = -minChildrenSize;
         if (indexOfRightNeighbor < parent.numberOfChildren()) {
+            CoverageMeasurer.visitedBranch(0);
             rightNeighbor = parent.getChild(indexOfRightNeighbor);
             rightNeighborSize = rightNeighbor.numberOfKeys();
+        } else {
+            CoverageMeasurer.visitedBranch(1);
         }
 
         // Try to borrow neighbor
         if (rightNeighbor != null && rightNeighborSize > minKeySize) {
+            CoverageMeasurer.visitedBranch(2);
             // Try to borrow from right neighbor
             T removeValue = rightNeighbor.getKey(0);
             int prev = getIndexOfPreviousValue(parent, removeValue);
@@ -344,17 +349,25 @@ public class BTree<T extends Comparable<T>> implements ITree<T> {
             node.addKey(parentValue);
             parent.addKey(neighborValue);
             if (rightNeighbor.numberOfChildren() > 0) {
+                CoverageMeasurer.visitedBranch(3);
                 node.addChild(rightNeighbor.removeChild(0));
+            }else {
+                CoverageMeasurer.visitedBranch(4);
             }
         } else {
+            CoverageMeasurer.visitedBranch(5);
             Node<T> leftNeighbor = null;
             int leftNeighborSize = -minChildrenSize;
             if (indexOfLeftNeighbor >= 0) {
+                CoverageMeasurer.visitedBranch(6);
                 leftNeighbor = parent.getChild(indexOfLeftNeighbor);
                 leftNeighborSize = leftNeighbor.numberOfKeys();
+            }else {
+                CoverageMeasurer.visitedBranch(7);
             }
 
             if (leftNeighbor != null && leftNeighborSize > minKeySize) {
+                CoverageMeasurer.visitedBranch(8);
                 // Try to borrow from left neighbor
                 T removeValue = leftNeighbor.getKey(leftNeighbor.numberOfKeys() - 1);
                 int prev = getIndexOfNextValue(parent, removeValue);
@@ -363,9 +376,13 @@ public class BTree<T extends Comparable<T>> implements ITree<T> {
                 node.addKey(parentValue);
                 parent.addKey(neighborValue);
                 if (leftNeighbor.numberOfChildren() > 0) {
+                    CoverageMeasurer.visitedBranch(9);
                     node.addChild(leftNeighbor.removeChild(leftNeighbor.numberOfChildren() - 1));
+                }else {
+                    CoverageMeasurer.visitedBranch(10);
                 }
             } else if (rightNeighbor != null && parent.numberOfKeys() > 0) {
+                CoverageMeasurer.visitedBranch(11);
                 // Can't borrow from neighbors, try to combined with right neighbor
                 T removeValue = rightNeighbor.getKey(0);
                 int prev = getIndexOfPreviousValue(parent, removeValue);
@@ -373,24 +390,31 @@ public class BTree<T extends Comparable<T>> implements ITree<T> {
                 parent.removeChild(rightNeighbor);
                 node.addKey(parentValue);
                 for (int i = 0; i < rightNeighbor.keysSize; i++) {
+                    CoverageMeasurer.visitedBranch(12);
                     T v = rightNeighbor.getKey(i);
                     node.addKey(v);
                 }
                 for (int i = 0; i < rightNeighbor.childrenSize; i++) {
+                    CoverageMeasurer.visitedBranch(13);
                     Node<T> c = rightNeighbor.getChild(i);
                     node.addChild(c);
                 }
 
                 if (parent.parent != null && parent.numberOfKeys() < minKeySize) {
+                    CoverageMeasurer.visitedBranch(14);
                     // removing key made parent too small, combined up tree
                     this.combined(parent);
                 } else if (parent.numberOfKeys() == 0) {
+                    CoverageMeasurer.visitedBranch(15);
                     // parent no longer has keys, make this node the new root
                     // which decreases the height of the tree
                     node.parent = null;
                     root = node;
+                }else {
+                    CoverageMeasurer.visitedBranch(16);
                 }
             } else if (leftNeighbor != null && parent.numberOfKeys() > 0) {
+                CoverageMeasurer.visitedBranch(17);
                 // Can't borrow from neighbors, try to combined with left neighbor
                 T removeValue = leftNeighbor.getKey(leftNeighbor.numberOfKeys() - 1);
                 int prev = getIndexOfNextValue(parent, removeValue);
@@ -398,23 +422,31 @@ public class BTree<T extends Comparable<T>> implements ITree<T> {
                 parent.removeChild(leftNeighbor);
                 node.addKey(parentValue);
                 for (int i = 0; i < leftNeighbor.keysSize; i++) {
+                    CoverageMeasurer.visitedBranch(18);
                     T v = leftNeighbor.getKey(i);
                     node.addKey(v);
                 }
                 for (int i = 0; i < leftNeighbor.childrenSize; i++) {
                     Node<T> c = leftNeighbor.getChild(i);
+                    CoverageMeasurer.visitedBranch(19);
                     node.addChild(c);
                 }
 
                 if (parent.parent != null && parent.numberOfKeys() < minKeySize) {
+                    CoverageMeasurer.visitedBranch(20);
                     // removing key made parent too small, combined up tree
                     this.combined(parent);
                 } else if (parent.numberOfKeys() == 0) {
+                    CoverageMeasurer.visitedBranch(21);
                     // parent no longer has keys, make this node the new root
                     // which decreases the height of the tree
                     node.parent = null;
                     root = node;
+                }else {
+                    CoverageMeasurer.visitedBranch(22);
                 }
+            }else {
+                CoverageMeasurer.visitedBranch(23);
             }
         }
 

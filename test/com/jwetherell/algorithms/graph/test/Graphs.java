@@ -9,7 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.attribute.standard.PrinterLocation;
+
 import com.jwetherell.algorithms.graph.*;
+import com.jwetherell.algorithms.CoverageMeasurer;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -707,8 +710,12 @@ public class Graphs {
     public void testFloydWarshallonDirectedWithNegWeights() {
         final DirectedWithNegativeWeights directedWithNegWeights = new DirectedWithNegativeWeights();
         {
+            CoverageMeasurer.setup(18);
             final Map<Vertex<Integer>, Map<Vertex<Integer>, Integer>> pathWeights = FloydWarshall.getAllPairsShortestPaths(directedWithNegWeights.graph);
             final Map<Vertex<Integer>, Map<Vertex<Integer>, Integer>> result = new HashMap<Vertex<Integer>, Map<Vertex<Integer>, Integer>>();
+
+            System.out.printf("%s%% of branches are covered.%n", CoverageMeasurer.getCoverage()* 100);
+            CoverageMeasurer.teardown();
             {
                 // Ideal weights
                 {   // Vertex 3
