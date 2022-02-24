@@ -226,6 +226,12 @@ public class MathematicsTest {
         check = Division.division(a, b);
         assertTrue("Division using shifts. a=" + a + " b=" + b + " result=" + result + " check=" + check, (result == check));
 
+        int c = 88;
+        int d = 1;
+        result = Division.divisionUsingShift(c, d);
+        check = Division.division(c, d);
+        assertTrue("Division using shifts. a=" + c + " b=" + d + " result=" + result + " check=" + check, (result == check));
+
         result = Division.divisionUsingLogs(a, b);
         check = Division.division(a, b);
         assertTrue("Division using logs. a=" + a + " b=" + b + " result=" + result + " check=" + check, (result == check));

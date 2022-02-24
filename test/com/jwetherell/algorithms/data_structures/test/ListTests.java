@@ -1,5 +1,6 @@
 package com.jwetherell.algorithms.data_structures.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -13,6 +14,21 @@ import com.jwetherell.algorithms.data_structures.test.common.Utils;
 import com.jwetherell.algorithms.data_structures.test.common.Utils.TestData;
 
 public class ListTests {
+
+    @Test
+    public void testArrayListSetAndToString() {
+        List.ArrayList<Integer> aList = new List.ArrayList<Integer>();
+        // Adds 0-9 to ArrayList
+        for (int i = 0 ; i < 10 ; i++) {
+            aList.add(i);
+        }
+        // Asserts that the ArrayList is correct from the beginning, while also testing toString
+        assertEquals("0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ", aList.toString());
+        // Sets index 0 to value 10
+        aList.set(0, 10);
+        // Asserts that the ArrayList is correct after set is used. Also testing toString
+        assertEquals("10, 1, 2, 3, 4, 5, 6, 7, 8, 9, ", aList.toString());
+    }
 
     @Test
     public void testArrayList() {
