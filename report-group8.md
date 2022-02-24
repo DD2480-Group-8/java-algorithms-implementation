@@ -167,7 +167,12 @@ if (negative) {
 
 
 
-### **BinarySearchTree-replaceNodeWithNode**
+### **Matrix-add**
+The main problem with this function was the multiple checks for data type, for example float, double, BigInteger, etc. This increases the complexity unnecessarily because for every method call only one of these if-loops would be entered. In addition, the function does not take into account combinations of data types, such as adding a matrix of Integers with a matrix of Floats.
+ 
+Hence, the function could perhaps be handled by following the Builder Pattern, and letting a separate function build the matrix before handling it in the main add() function. Most of the primitives can be widened to long and double, and BigInteger can be converted to BigDecimals. The builder tool can assign all types as these widened data types to reduce the load on the main add() function. Conversion to a wider data type can also alleviate the problem with number overflow. 
+ 
+The drawback of this is the extra space necessary to store longs and doubles instead of just integers. 
 
 
 ## **`Coverage`**
