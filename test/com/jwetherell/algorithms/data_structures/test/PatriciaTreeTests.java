@@ -32,7 +32,7 @@ public class PatriciaTreeTests {
 
     @Test
     public void testPatriciaTrie() {
-        System.out.println("-----------\nTesting with random data...\n-----------");
+//        System.out.println("-----------\nTesting with random data...\n-----------");
         TestData data = Utils.generateTestData(1000);
 
         String bstName = "PatriciaTrie";
@@ -51,7 +51,7 @@ public class PatriciaTreeTests {
      */
     @Test
     public void testPatriciaTrieAddExistingBlack() {
-        System.out.println("-----------\nAdding existing black...\n-----------");
+//        System.out.println("-----------\nAdding existing black...\n-----------");
         PatriciaTrie<String> p = new PatriciaTrie<>();
         p.add("Add");
         p.add("Ask");
@@ -69,7 +69,7 @@ public class PatriciaTreeTests {
      */
     @Test
     public void testPatriciaTrieAddDuplicates() {
-        System.out.println("-----------\nAdding duplicates...\n-----------");
+//        System.out.println("-----------\nAdding duplicates...\n-----------");
         PatriciaTrie<String> duplicateTree = new PatriciaTrie<>();
         duplicateTree.add("Add");
 
@@ -78,14 +78,14 @@ public class PatriciaTreeTests {
     }
 
     /**
-     * Runs between every test case to see how coverage improves.
-     */
-    @After
-    public void branchUpdateBetweenTestCases() {
-        System.out.printf("%.1f%% of branches are covered. \n", CoverageMeasurer.getCoverage() * 100);
-        System.out.println("The branches _not_ covered by the test class are: ");
-        System.out.printf("%s \n", Arrays.toString(CoverageMeasurer.getUnvisitedBranchInfo()));
-    }
+//     * Runs between every test case to see how coverage improves.
+//     */
+//    @After
+//    public void branchUpdateBetweenTestCases() {
+//        System.out.printf("%.1f%% of branches are covered. \n", CoverageMeasurer.getCoverage() * 100);
+//        System.out.println("The branches _not_ covered by the test class are: ");
+//        System.out.printf("%s \n", Arrays.toString(CoverageMeasurer.getUnvisitedBranchInfo()));
+//    }
 
     /**
      * Teardown function to reset the test class after finishing.
@@ -93,6 +93,7 @@ public class PatriciaTreeTests {
     @AfterClass
     public static void tearDown() {
         // perform all the teardown work
+        System.out.printf("%.1f%% of branches are covered in PatriciaTrie. \n", CoverageMeasurer.getCoverage() * 100);
         CoverageMeasurer.teardown();
 
         testClass = null;
