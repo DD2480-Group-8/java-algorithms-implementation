@@ -96,125 +96,125 @@ public class MatrixTests {
         assertTrue("Matrix multiplication error. matrix9="+matrix9+" result4"+result4, matrix9.equals(result4));
 
 
-        System.out.printf("%s%% of branches are covered - original matrix:add.%n", CoverageMeasurer.getCoverage()* 100);
+//        System.out.printf("%s%% of branches are covered - original matrix:add.%n", CoverageMeasurer.getCoverage()* 100);
 
         CoverageMeasurer.teardown();
 
     }
-//
-//    @Test
-//    public void testMatrixAddition() {
-//        CoverageMeasurer.setup(10);
-//
-//        int rows = 2;
-//        int cols = 2;
-//
-//        // Creating BIGDECIMAL test
-//        BigDecimal[][] arrayBDinit = new BigDecimal[][]{{BigDecimal.valueOf(0),BigDecimal.valueOf(1)},
-//                {BigDecimal.valueOf(2),BigDecimal.valueOf(3)}};
-//        Matrix<BigDecimal> matrixBD = new Matrix<BigDecimal>(2,2,arrayBDinit);
-//        Matrix<BigDecimal> matrixBD2 = new Matrix<BigDecimal>(2,2,arrayBDinit);
-//
-//        // Result of addition BIGDECIMAL
-//        BigDecimal[][] arrayBD = new BigDecimal[][]{{BigDecimal.valueOf(0),BigDecimal.valueOf(2)},
-//                {BigDecimal.valueOf(4),BigDecimal.valueOf(6)}};
-//        Matrix<BigDecimal> resultBD = new Matrix<BigDecimal>(2,2,arrayBD);
-//        Matrix<BigDecimal> matrixBDResult = matrixBD.add(matrixBD2);
-//        assertTrue("Matrix addition error. matrixBDResult="+matrixBDResult+" resultBD"+resultBD, matrixBDResult.equals(resultBD));
-//
-//        // Creating BIGINTEGER test
-//        BigInteger[][] arrayBIinit = new BigInteger[][]{{BigInteger.valueOf(0),BigInteger.valueOf(1)},
-//                {BigInteger.valueOf(2),BigInteger.valueOf(3)}};
-//        Matrix<BigInteger> matrixBI = new Matrix<BigInteger>(2,2,arrayBIinit);
-//        Matrix<BigInteger> matrixBI2 = new Matrix<BigInteger>(2,2,arrayBIinit);
-//
-//        // Result of addition BIGINTEGER
-//        BigInteger[][] arrayBI = new BigInteger[][]{{BigInteger.valueOf(0),BigInteger.valueOf(2)},
-//                {BigInteger.valueOf(4),BigInteger.valueOf(6)}};
-//        Matrix<BigInteger> resultBI = new Matrix<BigInteger>(2,2,arrayBI);
-//        Matrix<BigInteger> matrixBIResult = matrixBI.add(matrixBI2);
-//        assertTrue("Matrix addition error. matrixBIResult="+matrixBIResult+" resultBI"+resultBI, matrixBIResult.equals(resultBI));
-//
-//        // Creating LONG test
-//        long counterLong = 0L;
-//        Matrix<Long> matrixLong = new Matrix<Long>(rows, cols);
-//        for (int r = 0; r < rows; r++)
-//            for (int c = 0; c < cols; c++)
-//                matrixLong.set(r, c, counterLong++);
-//
-//        // Result of addition LONG
-//        Long[][] arrayLong = new Long[][]{{0L,2L},
-//                {4L,6L}};
-//        Matrix<Long> resultLong = new Matrix<Long>(2,2,arrayLong);
-//
-//        Matrix<Long> matrixLongResult = matrixLong.add(matrixLong);
-//        assertTrue("Matrix addition error. matrixLongResult="+matrixLongResult+" resultLong"+resultLong, matrixLongResult.equals(resultLong));
-//
-//        // Creating DOUBLE test
-//        double counterDouble = 0;
-//        Matrix<Double> matrixDouble = new Matrix<Double>(rows, cols);
-//        for (int r = 0; r < rows; r++)
-//            for (int c = 0; c < cols; c++)
-//                matrixDouble.set(r, c, counterDouble++);
-//
-//        // Result of addition DOUBLE
-//        Double[][] arrayDouble = new Double[][]{{(double) 0, 2.0},
-//                {4.0, 6.0}};
-//        Matrix<Double> resultDouble = new Matrix<Double>(2,2,arrayDouble);
-//
-//        Matrix<Double> matrixDoubleResult = matrixDouble.add(matrixDouble);
-//        assertTrue("Matrix addition error. matrixDoubleResult="+matrixDoubleResult+" resultDouble"+resultDouble, matrixDoubleResult.equals(resultDouble));
-//
-//        // Creating FLOAT test
-//        float counterFloat = 0;
-//        Matrix<Float> matrixFloat = new Matrix<Float>(rows, cols);
-//        for (int r = 0; r < rows; r++)
-//            for (int c = 0; c < cols; c++)
-//                matrixFloat.set(r, c, counterFloat++);
-//
-//        // Result of addition FLOAT
-//        Float[][] arrayFloat = new Float[][]{{(float) 0, 2F},
-//                {4F, 6F}};
-//        Matrix<Float> resultFloat = new Matrix<Float>(2,2,arrayFloat);
-//
-//        Matrix<Float> matrixFloatResult = matrixFloat.add(matrixFloat);
-//        assertTrue("Matrix addition error. matrixFloatResult="+matrixFloatResult+" resultFloat"+resultFloat, matrixFloatResult.equals(resultFloat));
-//
-//        // Creating INTEGER test
-//        int counterInt = 0;
-//        Matrix<Integer> matrixInteger = new Matrix<Integer>(rows, cols);
-//        for (int r = 0; r < rows; r++)
-//            for (int c = 0; c < cols; c++)
-//                matrixInteger.set(r, c, counterInt++);
-//
-//        // result of addition INTEGER
-//        Integer[][] arrayInteger = new Integer[][]{{0,2},
-//                {4,6}};
-//        Matrix<Integer> resultInteger = new Matrix<Integer>(2,2,arrayInteger);
-//
-//        Matrix<Integer> matrixIntegerResult = matrixInteger.add(matrixInteger);
-//        assertTrue("Matrix addition error. matrixIntegerResult="+matrixIntegerResult+" resultInteger"+resultInteger, matrixIntegerResult.equals(resultInteger));
-//
-//        // Creating wrong size matrices test
-//        Integer[][] arrayMismatchinit = new Integer[][]{{0, 1},
-//                {2, 3}};
-//        Integer[][] arrayMismatchinit2 = new Integer[][]{{0, 1, 2},
-//                {2, 3, 4}};
-//        Matrix<Integer> matrixMismatch = new Matrix<Integer>(2,2,arrayMismatchinit);
-//        Matrix<Integer> matrixMismatch2 = new Matrix<Integer>(2,3,arrayMismatchinit2);
-//
-//        // Result of addition
-//        Integer[][] arrayMismatch = new Integer[][]{{0,2},
-//                {4,6}};
-//        Matrix<Integer> resultMismatch = new Matrix<Integer>(2,2,arrayMismatch);
-//
-//        Matrix<Integer> matrixMismatchResult = matrixMismatch.add(matrixMismatch2);
-////        assertTrue("Matrix addition error. matrixMismatchResult="+matrixMismatchResult+" resultMismatch"+resultMismatch, matrixMismatchResult.equals(resultMismatch));
-//        System.out.printf("%s%% of branches are covered - with new tests for matrix:add.%n", CoverageMeasurer.getCoverage()* 100);
-//
-//        CoverageMeasurer.teardown();
-//
-//    }
+
+    @Test
+    public void testMatrixAddition() {
+        CoverageMeasurer.setup(10);
+
+        int rows = 2;
+        int cols = 2;
+
+        // Creating BIGDECIMAL test
+        BigDecimal[][] arrayBDinit = new BigDecimal[][]{{BigDecimal.valueOf(0),BigDecimal.valueOf(1)},
+                {BigDecimal.valueOf(2),BigDecimal.valueOf(3)}};
+        Matrix<BigDecimal> matrixBD = new Matrix<BigDecimal>(2,2,arrayBDinit);
+        Matrix<BigDecimal> matrixBD2 = new Matrix<BigDecimal>(2,2,arrayBDinit);
+
+        // Result of addition BIGDECIMAL
+        BigDecimal[][] arrayBD = new BigDecimal[][]{{BigDecimal.valueOf(0),BigDecimal.valueOf(2)},
+                {BigDecimal.valueOf(4),BigDecimal.valueOf(6)}};
+        Matrix<BigDecimal> resultBD = new Matrix<BigDecimal>(2,2,arrayBD);
+        Matrix<BigDecimal> matrixBDResult = matrixBD.add(matrixBD2);
+        assertTrue("Matrix addition error. matrixBDResult="+matrixBDResult+" resultBD"+resultBD, matrixBDResult.equals(resultBD));
+
+        // Creating BIGINTEGER test
+        BigInteger[][] arrayBIinit = new BigInteger[][]{{BigInteger.valueOf(0),BigInteger.valueOf(1)},
+                {BigInteger.valueOf(2),BigInteger.valueOf(3)}};
+        Matrix<BigInteger> matrixBI = new Matrix<BigInteger>(2,2,arrayBIinit);
+        Matrix<BigInteger> matrixBI2 = new Matrix<BigInteger>(2,2,arrayBIinit);
+
+        // Result of addition BIGINTEGER
+        BigInteger[][] arrayBI = new BigInteger[][]{{BigInteger.valueOf(0),BigInteger.valueOf(2)},
+                {BigInteger.valueOf(4),BigInteger.valueOf(6)}};
+        Matrix<BigInteger> resultBI = new Matrix<BigInteger>(2,2,arrayBI);
+        Matrix<BigInteger> matrixBIResult = matrixBI.add(matrixBI2);
+        assertTrue("Matrix addition error. matrixBIResult="+matrixBIResult+" resultBI"+resultBI, matrixBIResult.equals(resultBI));
+
+        // Creating LONG test
+        long counterLong = 0L;
+        Matrix<Long> matrixLong = new Matrix<Long>(rows, cols);
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                matrixLong.set(r, c, counterLong++);
+
+        // Result of addition LONG
+        Long[][] arrayLong = new Long[][]{{0L,2L},
+                {4L,6L}};
+        Matrix<Long> resultLong = new Matrix<Long>(2,2,arrayLong);
+
+        Matrix<Long> matrixLongResult = matrixLong.add(matrixLong);
+        assertTrue("Matrix addition error. matrixLongResult="+matrixLongResult+" resultLong"+resultLong, matrixLongResult.equals(resultLong));
+
+        // Creating DOUBLE test
+        double counterDouble = 0;
+        Matrix<Double> matrixDouble = new Matrix<Double>(rows, cols);
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                matrixDouble.set(r, c, counterDouble++);
+
+        // Result of addition DOUBLE
+        Double[][] arrayDouble = new Double[][]{{(double) 0, 2.0},
+                {4.0, 6.0}};
+        Matrix<Double> resultDouble = new Matrix<Double>(2,2,arrayDouble);
+
+        Matrix<Double> matrixDoubleResult = matrixDouble.add(matrixDouble);
+        assertTrue("Matrix addition error. matrixDoubleResult="+matrixDoubleResult+" resultDouble"+resultDouble, matrixDoubleResult.equals(resultDouble));
+
+        // Creating FLOAT test
+        float counterFloat = 0;
+        Matrix<Float> matrixFloat = new Matrix<Float>(rows, cols);
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                matrixFloat.set(r, c, counterFloat++);
+
+        // Result of addition FLOAT
+        Float[][] arrayFloat = new Float[][]{{(float) 0, 2F},
+                {4F, 6F}};
+        Matrix<Float> resultFloat = new Matrix<Float>(2,2,arrayFloat);
+
+        Matrix<Float> matrixFloatResult = matrixFloat.add(matrixFloat);
+        assertTrue("Matrix addition error. matrixFloatResult="+matrixFloatResult+" resultFloat"+resultFloat, matrixFloatResult.equals(resultFloat));
+
+        // Creating INTEGER test
+        int counterInt = 0;
+        Matrix<Integer> matrixInteger = new Matrix<Integer>(rows, cols);
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                matrixInteger.set(r, c, counterInt++);
+
+        // result of addition INTEGER
+        Integer[][] arrayInteger = new Integer[][]{{0,2},
+                {4,6}};
+        Matrix<Integer> resultInteger = new Matrix<Integer>(2,2,arrayInteger);
+
+        Matrix<Integer> matrixIntegerResult = matrixInteger.add(matrixInteger);
+        assertTrue("Matrix addition error. matrixIntegerResult="+matrixIntegerResult+" resultInteger"+resultInteger, matrixIntegerResult.equals(resultInteger));
+
+        // Creating wrong size matrices test
+        Integer[][] arrayMismatchinit = new Integer[][]{{0, 1},
+                {2, 3}};
+        Integer[][] arrayMismatchinit2 = new Integer[][]{{0, 1, 2},
+                {2, 3, 4}};
+        Matrix<Integer> matrixMismatch = new Matrix<Integer>(2,2,arrayMismatchinit);
+        Matrix<Integer> matrixMismatch2 = new Matrix<Integer>(2,3,arrayMismatchinit2);
+
+        // Result of addition
+        Integer[][] arrayMismatch = new Integer[][]{{0,2},
+                {4,6}};
+        Matrix<Integer> resultMismatch = new Matrix<Integer>(2,2,arrayMismatch);
+
+        Matrix<Integer> matrixMismatchResult = matrixMismatch.add(matrixMismatch2);
+//        assertTrue("Matrix addition error. matrixMismatchResult="+matrixMismatchResult+" resultMismatch"+resultMismatch, matrixMismatchResult.equals(resultMismatch));
+        System.out.printf("%s%% of branches are covered - with new tests for matrix:add.%n", CoverageMeasurer.getCoverage()* 100);
+
+        CoverageMeasurer.teardown();
+
+    }
     
     @Test
     public void testIdentityMethod1() {
