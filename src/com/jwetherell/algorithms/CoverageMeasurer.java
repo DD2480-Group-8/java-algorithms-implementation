@@ -47,19 +47,22 @@ public class CoverageMeasurer {
      * to get a percentage, multiply this value by 100.
      */
     public static double getCoverage() {
-        double numberOfBranches = branches.length;
+        double numberOfBranches = getNumberOfBranches();
         double numberOfVisitedBranches = getNumberOfVisitedBranches();
 
         return numberOfVisitedBranches / numberOfBranches;
     }
 
-    public static double getNumberOfVisitedBranches() {
-        double numberOfVisitedBranches = 0;
+    /**
+     *
+     * @return The number of branches visited
+     */
+    public static int getNumberOfVisitedBranches() {
+        int numberOfVisitedBranches = 0;
         for (boolean b: branches) {
             if (b)
                 numberOfVisitedBranches++;
         }
-
         return numberOfVisitedBranches;
     }
 
@@ -75,5 +78,22 @@ public class CoverageMeasurer {
         }
         return unvisitedBranches;
     }
+    
+    /**
+     *
+     * @return Total number of branches
+     */
+    public static int getNumberOfBranches() {
+        return branches.length;
+    }
 
+    public static void printResults() {
+        for (int i = 0 ; i < getNumberOfBranches() ; i++) {
+            if (branches[i]) {
+                System.out.printf("Branch %s visited%n", i);
+            } else {
+                System.out.printf("Branch %s not visited%n", i);
+            }
+        }
+    }
 }

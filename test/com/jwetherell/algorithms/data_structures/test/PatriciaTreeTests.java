@@ -20,7 +20,7 @@ public class PatriciaTreeTests {
     public void testPatriciaTrie() {
         TestData data = Utils.generateTestData(1000);
 
-        CoverageMeasurer.setup(25);
+        CoverageMeasurer.setup(26);
         String bstName = "PatriciaTrie";
         PatriciaTrie<String> bst = new PatriciaTrie<String>();
         Collection<String> bstCollection = bst.toCollection();
@@ -31,7 +31,7 @@ public class PatriciaTreeTests {
                                      data.unsorted, data.invalid));
         assertTrue(JavaCollectionTest.testCollection(bstCollection, String.class, bstName,
                                                      data.unsorted, data.sorted, data.invalid));
-        System.out.printf("%s%% of branches are covered.%n", CoverageMeasurer.getCoverage()* 100);
+        System.out.printf("%s%% of branches are covered in PatriciaTrie.%n", CoverageMeasurer.getCoverage()* 100);
 
         CoverageMeasurer.teardown();
     }

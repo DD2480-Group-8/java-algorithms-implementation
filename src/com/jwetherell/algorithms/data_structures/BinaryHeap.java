@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
+import com.jwetherell.algorithms.CoverageMeasurer;
 import com.jwetherell.algorithms.data_structures.interfaces.IHeap;
 
 /**
@@ -185,37 +186,67 @@ public interface BinaryHeap<T extends Comparable<T>> extends IHeap<T> {
 
         protected void heapDown(int index) {
             T value = this.array[index];
-            if (value==null)
+            if (value==null) {
+                CoverageMeasurer.visitedBranch(0);
                 return;
+            } else {
+                CoverageMeasurer.visitedBranch(1);
+            }
 
             int leftIndex = getLeftIndex(index);
             int rightIndex = getRightIndex(index);
-            T left = (leftIndex != Integer.MIN_VALUE && leftIndex < this.size) ? this.array[leftIndex] : null;
-            T right = (rightIndex != Integer.MIN_VALUE && rightIndex < this.size) ? this.array[rightIndex] : null;
+
+            // Original code
+//            T left = (leftIndex != Integer.MIN_VALUE && leftIndex < this.size) ? this.array[leftIndex] : null;
+//            T right = (rightIndex != Integer.MIN_VALUE && rightIndex < this.size) ? this.array[rightIndex] : null;
+            // Rewritten code to make it possible to check the branch coverage
+            T left;
+            if (leftIndex != Integer.MIN_VALUE && leftIndex < this.size) {
+                CoverageMeasurer.visitedBranch(2);
+                left = this.array[leftIndex];
+            } else {
+                CoverageMeasurer.visitedBranch(3);
+                left = null;
+            }
+            T right;
+            if (rightIndex != Integer.MIN_VALUE && rightIndex < this.size) {
+                CoverageMeasurer.visitedBranch(4);
+                right = this.array[rightIndex];
+            } else {
+                CoverageMeasurer.visitedBranch(5);
+                right = null;
+            }
 
             if (left == null && right == null) {
                 // Nothing to do here
+                CoverageMeasurer.visitedBranch(6);
                 return;
+            } else {
+                CoverageMeasurer.visitedBranch(7);
             }
 
             T nodeToMove = null;
             int nodeToMoveIndex = -1;
             if ((type == Type.MIN && left != null && right != null && value.compareTo(left) > 0 && value.compareTo(right) > 0)
                 || (type == Type.MAX && left != null && right != null && value.compareTo(left) < 0 && value.compareTo(right) < 0)) {
+                CoverageMeasurer.visitedBranch(8);
                 // Both children are greater/lesser than node
                 if ((right!=null) && 
                     ((type == Type.MIN && (right.compareTo(left) < 0)) || ((type == Type.MAX && right.compareTo(left) > 0)))
                 ) {
+                    CoverageMeasurer.visitedBranch(9);
                     // Right is greater/lesser than left
                     nodeToMove = right;
                     nodeToMoveIndex = rightIndex;
-                } else if ((left!=null) && 
+                } else if ((left!=null) &&
                            ((type == Type.MIN && left.compareTo(right) < 0) || (type == Type.MAX && left.compareTo(right) > 0))
                 ) {
+                    CoverageMeasurer.visitedBranch(10);
                     // Left is greater/lesser than right
                     nodeToMove = left;
                     nodeToMoveIndex = leftIndex;
                 } else {
+                    CoverageMeasurer.visitedBranch(11);
                     // Both children are equal, use right
                     nodeToMove = right;
                     nodeToMoveIndex = rightIndex;
@@ -223,19 +254,27 @@ public interface BinaryHeap<T extends Comparable<T>> extends IHeap<T> {
             } else if ((type == Type.MIN && right != null && value.compareTo(right) > 0)
                        || (type == Type.MAX && right != null && value.compareTo(right) < 0)
             ) {
+                CoverageMeasurer.visitedBranch(12);
                 // Right is greater/lesser than node
                 nodeToMove = right;
                 nodeToMoveIndex = rightIndex;
             } else if ((type == Type.MIN && left != null && value.compareTo(left) > 0)
                        || (type == Type.MAX && left != null && value.compareTo(left) < 0)
             ) {
+                CoverageMeasurer.visitedBranch(13);
                 // Left is greater/lesser than node
                 nodeToMove = left;
                 nodeToMoveIndex = leftIndex;
+            } else {
+                CoverageMeasurer.visitedBranch(14);
             }
             // No node to move, stop recursion
-            if (nodeToMove == null)
+            if (nodeToMove == null) {
+                CoverageMeasurer.visitedBranch(15);
                 return;
+            } else {
+                CoverageMeasurer.visitedBranch(16);
+            }
 
             // Re-factor heap sub-tree
             this.array[nodeToMoveIndex] = value;
